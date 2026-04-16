@@ -33,6 +33,10 @@ private:
     std::vector<Block> horizontal_blocks;
     std::vector<Block> vertical_blocks;
 
+    void reset_grid_indices();
+    void build_horizontal_blocks(const std::vector<std::vector<int>> &sums, const CombinationGenerator &combination_generator);
+    void build_vertical_blocks(const std::vector<std::vector<int>> &sums, const CombinationGenerator &combination_generator);
+
 public:
     KakuroPuzzle();
     KakuroPuzzle(int rows, int cols);
@@ -43,8 +47,11 @@ public:
     int get_rows() const;
     int get_cols() const;
     Cell &get_cell(int r, int c);
+    const Cell &get_cell(int r, int c) const;
     std::vector<Block> &get_horizontal_blocks();
+    const std::vector<Block> &get_horizontal_blocks() const;
     std::vector<Block> &get_vertical_blocks();
+    const std::vector<Block> &get_vertical_blocks() const; 
 
     void build_blocks(const std::vector<std::vector<int>> &horizontal_sums, const std::vector<std::vector<int>> &vertical_sums, const CombinationGenerator &combination_generator);
     void print_grid() const;
