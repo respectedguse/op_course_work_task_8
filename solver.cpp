@@ -4,7 +4,7 @@ using namespace std;
 
 KakuroSolver::KakuroSolver(KakuroPuzzle &p): puzzle(p), n_white(0) {}
 
-std::vector<int> KakuroSolver::possible_digits(int r, int c) {
+vector<int> KakuroSolver::possible_digits(int r, int c) {
     int hb = puzzle.get_cell(r, c).index_horizontal_block;
     int vb = puzzle.get_cell(r, c).index_vertical_block;
 
@@ -21,7 +21,7 @@ std::vector<int> KakuroSolver::possible_digits(int r, int c) {
     int remain_cells_horizontal = horizontal_block.cells.size() - horizontal_filled[hb];
     int remain_cells_vertical = vertical_block.cells.size() - vertical_filled[vb];
 
-    std::vector<int> candidates;
+    vector<int> candidates;
 
     for (int d = 1; d <= 9; ++d) {
         if (horizontal_used[hb][d] || vertical_used[vb][d]) {
@@ -135,14 +135,14 @@ std::vector<int> KakuroSolver::possible_digits(int r, int c) {
 bool KakuroSolver::backtrack() {
     int best_index = -1;
     int best_count = 10;
-    std::vector<int> best_candidates;
+    vector<int> best_candidates;
 
     for (size_t i = 0; i < white_cells.size(); ++i) {
         int row = white_cells[i].first;
         int col = white_cells[i].second;
 
         if (puzzle.get_cell(row, col).value == 0) {
-            std::vector<int> candidates = possible_digits(row, col);
+            vector<int> candidates = possible_digits(row, col);
 
             if (candidates.empty()) {
                 return false;
@@ -233,10 +233,12 @@ bool KakuroSolver::solve() {
 
     horizontal_sum.resize(puzzle.get_horizontal_blocks().size(), 0);
     vertical_sum.resize(puzzle.get_vertical_blocks().size(), 0);
+
     horizontal_filled.resize(puzzle.get_horizontal_blocks().size(), 0);
     vertical_filled.resize(puzzle.get_vertical_blocks().size(), 0);
-    horizontal_used.resize(puzzle.get_horizontal_blocks().size(), std::vector<bool>(10, false));
-    vertical_used.resize(puzzle.get_vertical_blocks().size(), std::vector<bool>(10, false));
+    
+    horizontal_used.resize(puzzle.get_horizontal_blocks().size(), vector<bool>(10, false));
+    vertical_used.resize(puzzle.get_vertical_blocks().size(), vector<bool>(10, false));
 
     return backtrack();
 }

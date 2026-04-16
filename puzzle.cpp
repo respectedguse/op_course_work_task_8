@@ -10,7 +10,6 @@ Block::Block() : sum(0) {}
 Block::Block(int s) : sum(s) {}
 
 KakuroPuzzle::KakuroPuzzle() {}
-
 KakuroPuzzle::KakuroPuzzle(int rows, int cols) : grid(rows, vector<Cell>(cols)) {}
 
 void KakuroPuzzle::set_black_cell(int r, int c) {
