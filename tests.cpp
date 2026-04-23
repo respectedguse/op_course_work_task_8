@@ -80,27 +80,24 @@ void test_build_blocks() {
     for (int i = 0; i < 5; ++i) puzzle.set_black_cell(0, i);
     for (int i = 0; i < 5; ++i) puzzle.set_black_cell(i, 0);
     puzzle.set_black_cell(2, 2);
+    for (int i = 0; i < 5; ++i) puzzle.set_black_cell(4, i);
     
     vector<vector<int>> hor_sums = {
-        {},           
-        {15},         
-        {6, 7},       
-        {20},         
-        {}            
+        {}, {15}, {6, 7}, {20}, {}
     };
     
     vector<vector<int>> ver_sums = {
-        {},           
-        {10},         
-        {8},          
-        {12},         
-        {7}           
+        {},        
+        {10},      
+        {8, 12},   
+        {12},      
+        {7}        
     };
     
     puzzle.build_blocks(hor_sums, ver_sums, gen);
     
     assert(puzzle.get_horizontal_blocks().size() == 4);
-    assert(puzzle.get_vertical_blocks().size() == 4);
+    assert(puzzle.get_vertical_blocks().size() == 5);
     
     const auto& hb = puzzle.get_horizontal_blocks();
     assert(hb[0].sum == 15);
@@ -112,13 +109,26 @@ void test_build_blocks() {
     assert(vb[0].sum == 10);
     assert(vb[1].sum == 8);
     assert(vb[2].sum == 12);
-    assert(vb[3].sum == 7);
+    assert(vb[3].sum == 12);
+    assert(vb[4].sum == 7);
     
-    assert(puzzle.get_cell(1, 1).index_horizontal_block == 0);
-    assert(puzzle.get_cell(1, 1).index_vertical_block == 0);
+    assert(puzzle.get_cell(1,1).index_horizontal_block == 0);
+    assert(puzzle.get_cell(1,1).index_vertical_block == 0);
     
-    assert(puzzle.get_cell(2, 3).index_horizontal_block == 2);
-    assert(puzzle.get_cell(2, 3).index_vertical_block == 2);
+    assert(puzzle.get_cell(2,1).index_horizontal_block == 1);
+    assert(puzzle.get_cell(2,1).index_vertical_block == 0);
+    
+    assert(puzzle.get_cell(3,1).index_horizontal_block == 3);
+    assert(puzzle.get_cell(3,1).index_vertical_block == 0);
+    
+    assert(puzzle.get_cell(1,2).index_horizontal_block == 0);
+    assert(puzzle.get_cell(1,2).index_vertical_block == 1);
+    
+    assert(puzzle.get_cell(3,2).index_horizontal_block == 3);
+    assert(puzzle.get_cell(3,2).index_vertical_block == 2);
+    
+    assert(puzzle.get_cell(2,3).index_horizontal_block == 2);
+    assert(puzzle.get_cell(2,3).index_vertical_block == 3);
     
     cout << "OK" << endl;
 }
@@ -151,6 +161,8 @@ void test_solver_small() {
 void test_solver_impossible() {
     cout << "test_solver_impossible... ";
     
+    cerr.setstate(ios::failbit);
+
     CombinationGenerator gen;
     KakuroPuzzle puzzle(3, 3);
     for (int i = 0; i < 3; ++i) puzzle.set_black_cell(0, i);
@@ -165,15 +177,17 @@ void test_solver_impossible() {
     KakuroSolver solver(puzzle);
     
     assert(!solver.solve()); 
-    
+
+    cerr.clear();
+
     cout << "OK" << endl;
 }
 
 
 
 int main() {
-    cout << "Running tests...\n" << endl;
-    
+    cout << "Running tests\n" << endl;
+
     test_min_max_sum();
     test_combinations_generator();
     test_build_blocks();

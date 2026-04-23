@@ -48,16 +48,16 @@ const Cell &KakuroPuzzle::get_cell(int r, int c) const {
     return grid[r][c];
 }
 
-const std::vector<Block> &KakuroPuzzle::get_horizontal_blocks() const {
+const vector<Block> &KakuroPuzzle::get_horizontal_blocks() const {
     return horizontal_blocks;
 }
 
-const std::vector<Block> &KakuroPuzzle::get_vertical_blocks() const {
+const vector<Block> &KakuroPuzzle::get_vertical_blocks() const {
     return vertical_blocks;
 }
 
-void KakuroPuzzle::build_blocks(const std::vector<std::vector<int>> &horizontal_sums, 
-                                const std::vector<std::vector<int>> &vertical_sums, 
+void KakuroPuzzle::build_blocks(const vector<vector<int>> &horizontal_sums, 
+                                const vector<vector<int>> &vertical_sums, 
                                 const CombinationGenerator &combination_generator) {
     horizontal_blocks.clear();
     vertical_blocks.clear();
@@ -84,7 +84,7 @@ void KakuroPuzzle::reset_grid_indices() {
     }
 }
 
-void KakuroPuzzle::build_horizontal_blocks(const std::vector<std::vector<int>> &sums, const CombinationGenerator &combination_generator) {
+void KakuroPuzzle::build_horizontal_blocks(const vector<vector<int>> &sums, const CombinationGenerator &combination_generator) {
     int rows = grid.size();
     if (rows == 0) return;
     int cols = grid[0].size();
@@ -130,7 +130,7 @@ void KakuroPuzzle::build_horizontal_blocks(const std::vector<std::vector<int>> &
     }
 }
 
-void KakuroPuzzle::build_vertical_blocks(const std::vector<std::vector<int>> &sums, const CombinationGenerator &combination_generator) {
+void KakuroPuzzle::build_vertical_blocks(const vector<vector<int>> &sums, const CombinationGenerator &combination_generator) {
     int rows = grid.size();
     if (rows == 0) return;
     int cols = grid[0].size();
