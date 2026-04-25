@@ -4,6 +4,14 @@
 #include <vector>
 #include <map>
 
+/* ---------------------------------------------------------------------[<]-
+    Class: CombinationGenerator
+    Synopsis: this class was created for precompute and store all 
+              combinations of digits that sum to a give value. Used by 
+              Kakuro Solver to quickly obtain possible digit sets for 
+              each block. 
+   ---------------------------------------------------------------------[>]-*/
+
 class CombinationGenerator {
 private:
     std::map<std::pair<int, int>, std::vector<std::vector<int>>> combinations;

@@ -3,59 +3,124 @@
 
 using namespace std;
 
+/*---------------------------------------------------------------------[<]-
+    Functions: Cell 
+    Synopsis: Cell() - default constructor that initializes as non-black,
+              value 0, block indices to -1.
+              Cell(bool black) - constructor that sets cell as black
+              or not, value 0, block indices to -1.
+  ---------------------------------------------------------------------[>]-*/
 Cell::Cell() : is_black(false), value(0), index_horizontal_block(-1), index_vertical_block(-1) {}
 Cell::Cell(bool black) : is_black(black), value(0), index_horizontal_block(-1), index_vertical_block(-1) {}
 
+/*---------------------------------------------------------------------[<]-
+    Functions: Block
+    Synopsis: Block() - default constructor that initializes sum to 0.
+              Block(int s) - constructor that sets sum for the block.
+  ---------------------------------------------------------------------[>]-*/
 Block::Block() : sum(0) {}
 Block::Block(int s) : sum(s) {}
 
+/*---------------------------------------------------------------------[<]-
+    Functions: KakuroPuzzle
+    Synopsis: KakuroPuzzle() - default constructor that creates an empty 
+              puzzle.
+              KakuroPuzzle(int row, int cols) - constructor that creates
+              a puzzle grid of give size.
+  ---------------------------------------------------------------------[>]-*/
 KakuroPuzzle::KakuroPuzzle() {}
 KakuroPuzzle::KakuroPuzzle(int rows, int cols) : grid(rows, vector<Cell>(cols)) {}
 
+/*---------------------------------------------------------------------[<]-
+    Function: set_black_cell
+    Synopsis: Sets the cell as (r, c) as black.
+  ---------------------------------------------------------------------[>]-*/
 void KakuroPuzzle::set_black_cell(int r, int c) {
     if (r >= 0 && r < (int)grid.size() && c >= 0 && c < (int)grid[0].size()) {
         grid[r][c].is_black = true;
     }
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: set_cell_value
+    Synopsis: Sets the digit value for a white cell.
+  ---------------------------------------------------------------------[>]-*/
 void KakuroPuzzle::set_cell_value(int r, int c, int value) {
     if (r >= 0 && r < (int)grid.size() && c >= 0 && c < (int)grid[0].size()) {
         grid[r][c].value = value;
     }
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: get_rows
+    Synopsis: Returns the number of rows in the grid.
+  ---------------------------------------------------------------------[>]-*/
 int KakuroPuzzle::get_rows() const {
     return grid.size();
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: get_cols
+    Synopsis: Returns the number of cols in the grid.              
+  ---------------------------------------------------------------------[>]-*/
 int KakuroPuzzle::get_cols() const {
     return grid.empty() ? 0 : grid[0].size();
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: get_cell
+    Synopsis: Returns a reference to the cell at (r, c).
+  ---------------------------------------------------------------------[>]-*/
 Cell &KakuroPuzzle::get_cell(int r, int c) {
     return grid[r][c];
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: get_horizontal_blocks
+    Synopsis: Returns a reference to the vector of horizontal blocks.
+  ---------------------------------------------------------------------[>]-*/
 vector<Block> &KakuroPuzzle::get_horizontal_blocks() {
     return horizontal_blocks;
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: get_vertical_blocks
+    Synopsis: Returns a reference to the vector of vertical blocks.
+  ---------------------------------------------------------------------[>]-*/
 vector<Block> &KakuroPuzzle::get_vertical_blocks() {
     return vertical_blocks;
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: get_cell
+    Synopsis: Returns a const reference to the cell at (r, c).
+  ---------------------------------------------------------------------[>]-*/
 const Cell &KakuroPuzzle::get_cell(int r, int c) const {
     return grid[r][c];
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: get_horizontal_blocks
+    Synopsis: Returns a const reference to the vector of horizontal blocks.
+  ---------------------------------------------------------------------[>]-*/
 const vector<Block> &KakuroPuzzle::get_horizontal_blocks() const {
     return horizontal_blocks;
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: get_vertical_blocks
+    Synopsis: Returns a const reference to the vector of vertical blocks.
+  ---------------------------------------------------------------------[>]-*/
 const vector<Block> &KakuroPuzzle::get_vertical_blocks() const {
     return vertical_blocks;
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: build_blocks 
+    Synopsis: Builds horizontal and vertical block from given sums.
+              Clears existing blocks, resets indices and build blocks
+              using the combination generator.
+  ---------------------------------------------------------------------[>]-*/
 void KakuroPuzzle::build_blocks(const vector<vector<int>> &horizontal_sums, 
                                 const vector<vector<int>> &vertical_sums, 
                                 const CombinationGenerator &combination_generator) {
@@ -69,6 +134,11 @@ void KakuroPuzzle::build_blocks(const vector<vector<int>> &horizontal_sums,
     build_vertical_blocks(vertical_sums, combination_generator);
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: reset_grid_indices
+    Synopsis: Resets the horizontal and vertical blocks indices for all
+              white cells to -1.
+  ---------------------------------------------------------------------[>]-*/
 void KakuroPuzzle::reset_grid_indices() {
     int rows = grid.size();
     if (rows == 0) return;
@@ -84,6 +154,12 @@ void KakuroPuzzle::reset_grid_indices() {
     }
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: build_horizontal_blocks
+    Synopsis: Creates horizontal blocks for each row of given sums.
+              Assigns block indices to cells and stores possible 
+              combinations.
+  ---------------------------------------------------------------------[>]-*/
 void KakuroPuzzle::build_horizontal_blocks(const vector<vector<int>> &sums, const CombinationGenerator &combination_generator) {
     int rows = grid.size();
     if (rows == 0) return;
@@ -130,6 +206,12 @@ void KakuroPuzzle::build_horizontal_blocks(const vector<vector<int>> &sums, cons
     }
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: build_vertical_blocks
+    Synopsis: Creates vertical blocks for each row of given sums.
+              Assigns block indices to cells and stores possible 
+              combinations.
+  ---------------------------------------------------------------------[>]-*/
 void KakuroPuzzle::build_vertical_blocks(const vector<vector<int>> &sums, const CombinationGenerator &combination_generator) {
     int rows = grid.size();
     if (rows == 0) return;
@@ -178,6 +260,11 @@ void KakuroPuzzle::build_vertical_blocks(const vector<vector<int>> &sums, const 
     }
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: print_grid
+    Synopsis: Prints the grid to console.
+              
+  ---------------------------------------------------------------------[>]-*/
 void KakuroPuzzle::print_grid() const {
     int rows = grid.size();
     if (rows == 0) return;

@@ -7,6 +7,11 @@
 
 #include "puzzle.h"
 
+/*---------------------------------------------------------------------[<]-
+    Class: KakuroGridWidget
+    Synopsis: Qt widget that draws the Kakuro puzzle grid. Displays
+              black cells with hints, white cells with entered digits.
+  ---------------------------------------------------------------------[>]-*/
 class KakuroGridWidget : public QWidget {
     Q_OBJECT
 public:

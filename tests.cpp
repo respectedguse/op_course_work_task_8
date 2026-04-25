@@ -7,6 +7,11 @@
 
 using namespace std;
 
+/*---------------------------------------------------------------------[<]-
+    Function: test_min_max_sum
+    Synopsis: Tests methods min_sum_fore len and max_sum_for_len
+              for length 1...9. Verifies correct min and max sums.
+  ---------------------------------------------------------------------[>]-*/
 void test_min_max_sum() {
     cout << "test_min_max_sum... ";
     
@@ -27,6 +32,11 @@ void test_min_max_sum() {
     cout << "OK" << endl;
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: test_combinations_generator
+    Synopsis: Verifies that get_combinations returns correct sets 
+              for various pairs, including edge cases with no combinations.
+  ---------------------------------------------------------------------[>]-*/
 void test_combinations_generator() {
     cout << "test_combinations_generator... ";
     
@@ -69,8 +79,11 @@ void test_combinations_generator() {
     cout << "OK" << endl;
 }
 
-
-
+/*---------------------------------------------------------------------[<]-
+    Function: test_build_blocks
+    Synopsis: Tests building horizontal and vertical blocks from sums.
+              Verifies block counts, sums, and index assignments.
+  ---------------------------------------------------------------------[>]-*/
 void test_build_blocks() {
     cout << "test_build_blocks... ";
     
@@ -133,8 +146,11 @@ void test_build_blocks() {
     cout << "OK" << endl;
 }
 
-
-
+/*---------------------------------------------------------------------[<]-
+    Function: test_solver_small
+    Synopsis: Tests solver on a trivial 1-cell puzzle.
+              Verifies that solution is found correctly.
+  ---------------------------------------------------------------------[>]-*/
 void test_solver_small() {
     cout << "test_solver_small... ";
     
@@ -158,6 +174,11 @@ void test_solver_small() {
     cout << "OK" << endl;
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: test_solver_impossible
+    Synopsis: Tests solver on an impossible puzzle.
+              Verifies that solve() returns false.
+  ---------------------------------------------------------------------[>]-*/
 void test_solver_impossible() {
     cout << "test_solver_impossible... ";
     
@@ -183,8 +204,9 @@ void test_solver_impossible() {
     cout << "OK" << endl;
 }
 
-
-
+/*---------------------------------------------------------------------[<]-
+    The main method runs all tests functions.
+  ---------------------------------------------------------------------[>]-*/
 int main() {
     cout << "Running tests\n" << endl;
 

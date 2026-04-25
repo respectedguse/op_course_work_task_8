@@ -3,11 +3,21 @@
 
 using namespace std;
 
+// Returns codes for find_best_empty_cell
 const int G_STATUS_SOLVED = -1;
 const int G_STATUS_END = -2;
 
+/*---------------------------------------------------------------------[<]-
+    Function: KakuroSolver
+    Synopsis: Constructor that keeps reference to the puzzle to be solved.
+  ---------------------------------------------------------------------[>]-*/
 KakuroSolver::KakuroSolver(KakuroPuzzle &p): puzzle(p) {}
 
+/*---------------------------------------------------------------------[<]-
+    Function: possible_digits
+    Synopsis: Returns list of digits that can be placed ad (r, c) without
+              violating sum, repetition, and combination constraints.
+  ---------------------------------------------------------------------[>]-*/
 vector<int> KakuroSolver::possible_digits(int r, int c) const {
     int hb = puzzle.get_cell(r, c).index_horizontal_block;
     int vb = puzzle.get_cell(r, c).index_vertical_block;
@@ -46,6 +56,11 @@ vector<int> KakuroSolver::possible_digits(int r, int c) const {
     return candidates;
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: is_sum_possible
+    Synopsis: Check if after placing digit, the remain sum can still
+              be achieved with remaining cells. 
+  ---------------------------------------------------------------------[>]-*/
 bool KakuroSolver::is_sum_possible(int remain_sum, int remain_cells, int d) const {
     if (remain_cells > 1) {
         int min_sum_len = CombinationGenerator::min_sum_for_len(remain_cells - 1);
@@ -58,6 +73,12 @@ bool KakuroSolver::is_sum_possible(int remain_sum, int remain_cells, int d) cons
     return (remain_sum - d == 0);
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: backtrack
+    Synopsis: Recursive backtracking method. Selects best empty cell,
+              tries each candidate digit, and proceeds. Returns true 
+              is solved.
+  ---------------------------------------------------------------------[>]-*/
 bool KakuroSolver::backtrack() {
     vector<int> best_candidates;
     int best_index = find_best_empty_cell(best_candidates);
@@ -88,6 +109,12 @@ bool KakuroSolver::backtrack() {
     return false;
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: is_combination_possible
+    Synopsis: Checks whether placing digit is compatible with at least 
+              one remaining combination from blocks's precomputed
+              lists, give already used digits.
+  ---------------------------------------------------------------------[>]-*/
 bool KakuroSolver::is_combination_possible(int d, const Block &block, const vector<bool> &used_digits) const {
     for (const auto &comb: block.possible_combinations) {
         bool has_d = false;
@@ -121,6 +148,12 @@ bool KakuroSolver::is_combination_possible(int d, const Block &block, const vect
     return false;
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: find_best_empty_cell
+    Synopsis: Selects empty cell with minimum number of candidates.
+              If no candidates exist, returns G_STATUS_END. 
+              If all cells filled, returns G_STATUS_SOLVED.
+  ---------------------------------------------------------------------[>]-*/
 int KakuroSolver::find_best_empty_cell(vector<int> &best_candidates) const {
     int best_index = -1;
     int best_count = 10;
@@ -146,6 +179,11 @@ int KakuroSolver::find_best_empty_cell(vector<int> &best_candidates) const {
     return (best_index == -1) ? G_STATUS_SOLVED : best_index;
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: is_puzzle_solved_correctly
+    Synopsis: Verifies that all horizontal and vertical sums match
+              the target sums.
+  ---------------------------------------------------------------------[>]-*/
 bool KakuroSolver::is_puzzle_solved_correctly() const {
     for (size_t i = 0; i < puzzle.get_horizontal_blocks().size(); ++i) {
         if (horizontal_sum[i] != puzzle.get_horizontal_blocks()[i].sum) {
@@ -162,6 +200,10 @@ bool KakuroSolver::is_puzzle_solved_correctly() const {
     return true;
 }
  
+/*---------------------------------------------------------------------[<]-
+    Function: apply_digit
+    Synopsis: Places digit into cell and updates all tracking structures.
+  ---------------------------------------------------------------------[>]-*/
 void KakuroSolver::apply_digit(int row, int col, int d, int horizontal_block, int vertical_block) {
     puzzle.set_cell_value(row, col, d);
     horizontal_sum[horizontal_block] += d;
@@ -172,6 +214,10 @@ void KakuroSolver::apply_digit(int row, int col, int d, int horizontal_block, in
     vertical_used[vertical_block][d] = true;
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: remove_digit
+    Synopsis: Removes digit from cell and restores tracking structures.
+  ---------------------------------------------------------------------[>]-*/
 void KakuroSolver::remove_digit(int row, int col, int d, int horizontal_block, int vertical_block) {
     puzzle.set_cell_value(row, col, 0);
     horizontal_sum[horizontal_block] -= d;
@@ -182,6 +228,11 @@ void KakuroSolver::remove_digit(int row, int col, int d, int horizontal_block, i
     vertical_used[vertical_block][d] = false;
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: solve
+    Synopsis: Prepares data structures, checks combination preconditions,
+              and starts backtracking. Returns true is solution found.
+  ---------------------------------------------------------------------[>]-*/
 bool KakuroSolver::solve() {
     white_cells.clear();
     

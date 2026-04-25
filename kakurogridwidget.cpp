@@ -3,20 +3,36 @@
 #include <QPainter>
 #include <QFont>
 
+/*---------------------------------------------------------------------[<]-
+    Function: KakuroGridWidget
+    Synopsis: Constructor that sets minimum widget size.
+  ---------------------------------------------------------------------[>]-*/
 KakuroGridWidget::KakuroGridWidget(QWidget *parent) : QWidget(parent) {
     setMinimumSize(400, 400);
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: set_puzzle
+    Synopsis: Sets the puzzle to display and refresh the widget.
+  ---------------------------------------------------------------------[>]-*/
 void KakuroGridWidget::set_puzzle(const KakuroPuzzle *p) {
     puzzle = p;
     update();
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: set_hints
+    Synopsis: Stores hints pairs for black cells.
+  ---------------------------------------------------------------------[>]-*/
 void KakuroGridWidget::set_hints(const QVector<QVector<QPair<int,int>>> &h) {
     hints = h;
     update();
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: cell_size
+    Synopsis: Computes cell size based on widget dimensions and grid size.
+  ---------------------------------------------------------------------[>]-*/
 int KakuroGridWidget::cell_size() const {
     if (!puzzle) {
         return 50;
@@ -35,6 +51,10 @@ int KakuroGridWidget::cell_size() const {
     return qMin(w, h);
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: pantEvent
+    Synopsis: Overridden paint event. Draws all grid cells.
+  ---------------------------------------------------------------------[>]-*/
 void KakuroGridWidget::paintEvent(QPaintEvent *event) {
     Q_UNUSED(event);
 
@@ -56,6 +76,10 @@ void KakuroGridWidget::paintEvent(QPaintEvent *event) {
     }
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: draw_cell
+    Synopsis: Draws a single cell (black or white).
+  ---------------------------------------------------------------------[>]-*/
 void KakuroGridWidget::draw_cell(QPainter &painter, int row, int col) {
     int sz = cell_size();
     int x = col * sz;

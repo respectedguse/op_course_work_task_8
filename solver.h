@@ -4,6 +4,10 @@
 #include "puzzle.h"
 #include "combinations.h"
 
+/*---------------------------------------------------------------------[<]-
+    Class: KakuroSolver
+    Synopsis: Implements backtracking algorithm to solve Kakuro puzzle.
+  ---------------------------------------------------------------------[>]-*/
 class KakuroSolver {
 private:
     KakuroPuzzle &puzzle;

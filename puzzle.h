@@ -6,6 +6,11 @@
 #include <utility>
 #include "combinations.h"
 
+/*---------------------------------------------------------------------[<]-
+    Class: Cell
+    Synopsis: The class was created for representing a single cell in
+              Kakuro grid.              
+  ---------------------------------------------------------------------[>]-*/
 class Cell {
 public:
     bool is_black;
@@ -17,6 +22,11 @@ public:
     Cell(bool black);
 };
 
+/*---------------------------------------------------------------------[<]-
+    Class: Block
+    Synopsis: The class was created for representing a horizontal or 
+              vertical sequence of white cell.
+  ---------------------------------------------------------------------[>]-*/
 class Block {
 public:
     int sum;
@@ -27,6 +37,11 @@ public:
     Block(int s);
 };
 
+/*---------------------------------------------------------------------[<]-
+    Class: KakuroPuzzle
+    Synopsis: Main class that represents puzzle. Holds grid, horizontal 
+              and vertical blocks.
+  ---------------------------------------------------------------------[>]-*/
 class KakuroPuzzle {
 private:
     std::vector<std::vector<Cell>> grid;

@@ -15,6 +15,10 @@ class KakuroGridWidget;
 class QLabel;
 QT_END_NAMESPACE
 
+/*---------------------------------------------------------------------[<]-
+    Class: MainWindow
+    Synopsis: Main app window. Contains grid widget and control buttons.
+  ---------------------------------------------------------------------[>]-*/
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:

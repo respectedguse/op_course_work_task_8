@@ -11,6 +11,11 @@
 
 using namespace std;
 
+/*---------------------------------------------------------------------[<]-
+    Function: MainWindow
+    Synopsis: Constructor that sets up UI: grid, intro text, buttons
+              and connections.
+  ---------------------------------------------------------------------[>]-*/
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), current_puzzle(nullptr), current_solver(nullptr) {
     QWidget *central = new QWidget(this);
     setCentralWidget(central);
@@ -70,23 +75,45 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), current_puzzle(nul
     resize(600, 600);
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: ~MainWindow
+    Synopsis: Destructor that cleans up dynamically allocates puzzle
+              and solver.
+  ---------------------------------------------------------------------[>]-*/
 MainWindow::~MainWindow() {
     delete current_puzzle;
     delete current_solver;
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: ont_test1_clicked
+    Synopsis: Initialize setup puzzle for the test 1.
+  ---------------------------------------------------------------------[>]-*/
 void MainWindow::on_test1_clicked() {
     setup_puzzle_from_test(1);
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: ont_test2_clicked
+    Synopsis: Initialize setup puzzle for the test 2.
+  ---------------------------------------------------------------------[>]-*/
 void MainWindow::on_test2_clicked() {
     setup_puzzle_from_test(2);
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: ont_test3_clicked
+    Synopsis: Initialize setup puzzle for the test 3.
+  ---------------------------------------------------------------------[>]-*/
 void MainWindow::on_test3_clicked() {
     setup_puzzle_from_test(3);
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: setup_puzzle_from_test 
+    Synopsis: Deletes current puzzle, creates a new one based on test id,
+              computes hints, and updates the grid widget.
+  ---------------------------------------------------------------------[>]-*/
 void MainWindow::setup_puzzle_from_test(int test_id) {
     intro_label->hide();
     grid_widget->show();
@@ -113,6 +140,10 @@ void MainWindow::setup_puzzle_from_test(int test_id) {
     grid_widget->update();
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: create_test1
+    Synopsis: Build and returns the first predefined Kakuro puzzle.
+  ---------------------------------------------------------------------[>]-*/
 KakuroPuzzle *MainWindow::create_test1() {
     KakuroPuzzle *puzzle = new KakuroPuzzle(10, 10);
 
@@ -167,6 +198,10 @@ KakuroPuzzle *MainWindow::create_test1() {
     return puzzle;
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: create_test2
+    Synopsis: Build and returns the second predefined Kakuro puzzle.
+  ---------------------------------------------------------------------[>]-*/
 KakuroPuzzle *MainWindow::create_test2() {
     KakuroPuzzle *puzzle = new KakuroPuzzle(7, 7);
 
@@ -212,6 +247,10 @@ KakuroPuzzle *MainWindow::create_test2() {
     return puzzle;
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: create_test3
+    Synopsis: Build and returns the third predefined Kakuro puzzle. 
+  ---------------------------------------------------------------------[>]-*/
 KakuroPuzzle *MainWindow::create_test3() {
     KakuroPuzzle *puzzle = new KakuroPuzzle(10, 10);
 
@@ -266,6 +305,11 @@ KakuroPuzzle *MainWindow::create_test3() {
     return puzzle;
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: compute_hints_from_blocks
+    Synopsis: Extracts horizontal and vertical sum clues from blocks
+              and stores them in a 2D vector for drawing on black cells.
+  ---------------------------------------------------------------------[>]-*/
 void MainWindow::compute_hints_from_blocks() {
     if (!current_puzzle) {
         return;
@@ -314,6 +358,11 @@ void MainWindow::compute_hints_from_blocks() {
     }
 }
 
+/*---------------------------------------------------------------------[<]-
+    Function: on_solve_clicked
+    Synopsis: Method for solve button that runs solver, measures time,
+              update grid and shows warning on failure.
+  ---------------------------------------------------------------------[>]-*/
 void MainWindow::on_solve_clicked() {
     if (!current_puzzle) {
         QMessageBox::warning(this, "No puzzle", "Please select a test first.");
