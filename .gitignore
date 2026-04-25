@@ -1,2 +1,7 @@
 *.o
 *.exe
+
+build/
+build-*/
+.qtcreator/
+CMakeUserPresets.json
