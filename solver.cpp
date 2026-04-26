@@ -3,10 +3,6 @@
 
 using namespace std;
 
-// Returns codes for find_best_empty_cell
-const int G_STATUS_SOLVED = -1;
-const int G_STATUS_END = -2;
-
 /*---------------------------------------------------------------------[<]-
     Function: KakuroSolver
     Synopsis: Constructor that keeps reference to the puzzle to be solved.
@@ -83,8 +79,8 @@ bool KakuroSolver::backtrack() {
     vector<int> best_candidates;
     int best_index = find_best_empty_cell(best_candidates);
 
-    if (best_index == G_STATUS_END) return false;
-    if (best_index == G_STATUS_SOLVED) return is_puzzle_solved_correctly();
+    if (best_index == END) return false;
+    if (best_index == SOLVED) return is_puzzle_solved_correctly();
 
     int row = white_cells[best_index].first;
     int col = white_cells[best_index].second;
@@ -165,7 +161,7 @@ int KakuroSolver::find_best_empty_cell(vector<int> &best_candidates) const {
         if (puzzle.get_cell(row, col).value == 0) {
             vector<int> candidates = possible_digits(row, col);
 
-            if (candidates.empty()) return G_STATUS_END;
+            if (candidates.empty()) return END;
 
             if (candidates.size() < (size_t)best_count) {
                 best_count = candidates.size();
@@ -176,7 +172,7 @@ int KakuroSolver::find_best_empty_cell(vector<int> &best_candidates) const {
             }
         }
     }
-    return (best_index == -1) ? G_STATUS_SOLVED : best_index;
+    return (best_index == -1) ? SOLVED : best_index;
 }
 
 /*---------------------------------------------------------------------[<]-

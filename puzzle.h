@@ -68,6 +68,8 @@ public:
     std::vector<Block> &get_vertical_blocks();
     const std::vector<Block> &get_vertical_blocks() const; 
 
+    void clear_solution();
+
     void build_blocks(const std::vector<std::vector<int>> &horizontal_sums, const std::vector<std::vector<int>> &vertical_sums, const CombinationGenerator &combination_generator);
     void print_grid() const;
 };

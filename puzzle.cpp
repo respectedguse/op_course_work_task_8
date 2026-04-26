@@ -116,6 +116,21 @@ const vector<Block> &KakuroPuzzle::get_vertical_blocks() const {
 }
 
 /*---------------------------------------------------------------------[<]-
+    Function: clear_solution
+    Synopsis: Resets the value of all non-black cells to 0, clear
+              the current puzzle solution.
+  ---------------------------------------------------------------------[>]-*/
+void KakuroPuzzle::clear_solution() {
+    for (auto &row: grid) {
+        for (auto &cell: row) {
+            if (!cell.is_black) {
+                cell.value = 0;
+            }
+        }
+    }
+}
+
+/*---------------------------------------------------------------------[<]-
     Function: build_blocks 
     Synopsis: Builds horizontal and vertical block from given sums.
               Clears existing blocks, resets indices and build blocks

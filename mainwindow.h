@@ -33,7 +33,6 @@ private slots:
 
 private:
     void setup_puzzle_from_test(int test_id);
-    void update_grid_from_puzzle();
     void compute_hints_from_blocks();
 
     KakuroPuzzle *create_test1();

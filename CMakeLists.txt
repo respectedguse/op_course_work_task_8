@@ -18,6 +18,7 @@ add_executable(KakuroSolver
     combinations.cpp combinations.h
 )
 
+target_compile_options(KakuroSolver PRIVATE -Wall)
 target_link_libraries(KakuroSolver Qt6::Widgets)
 
 add_executable(KakuroTests
@@ -26,3 +27,5 @@ add_executable(KakuroTests
     solver.cpp solver.h
     combinations.cpp combinations.h
 )
+
+target_compile_options(KakuroTests PRIVATE -Wall)

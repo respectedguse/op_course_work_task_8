@@ -369,6 +369,8 @@ void MainWindow::on_solve_clicked() {
         return;
     }
 
+    current_puzzle->clear_solution();
+
     delete current_solver;
     current_solver = new KakuroSolver(*current_puzzle);
 

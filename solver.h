@@ -10,6 +10,12 @@
   ---------------------------------------------------------------------[>]-*/
 class KakuroSolver {
 private:
+    //Codes for find_best_empty_cell
+    enum Status {
+        SOLVED = -1,
+        END = -2
+    };
+
     KakuroPuzzle &puzzle;
 
     std::vector<std::pair<int, int>> white_cells;
