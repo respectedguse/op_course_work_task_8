@@ -67,7 +67,6 @@ void KakuroGridWidget::paintEvent(QPaintEvent *event) {
 
     int rows = puzzle->get_rows();
     int cols = puzzle->get_cols();
-    int sz = cell_size();
 
     for (int r = 0; r < rows; ++r) {
         for (int c = 0; c < cols; ++c) {
@@ -78,38 +77,38 @@ void KakuroGridWidget::paintEvent(QPaintEvent *event) {
 
 /*---------------------------------------------------------------------[<]-
     Function: draw_cell
-    Synopsis: Draws a single cell (black or white).
+    Synopsis: Draws a single cell (black/white).
   ---------------------------------------------------------------------[>]-*/
 void KakuroGridWidget::draw_cell(QPainter &painter, int row, int col) {
-    int sz = cell_size();
-    int x = col * sz;
-    int y = row * sz;
+    int size = cell_size();
+    int x = col * size;
+    int y = row * size;
 
-    QRect rect(x, y, sz, sz);
+    QRect rect(x, y, size, size);
     const Cell &cell = puzzle->get_cell(row, col);
 
     if (cell.is_black) {
         painter.fillRect(rect, Qt::black);
         painter.setPen(Qt::white);
         QFont font = painter.font();
-        font.setPointSize(qMax(8, sz / 5));
+        font.setPointSize(qMax(8, size / 5));
         painter.setFont(font);
 
         int hor_hint = (row < hints.size() && col < hints[row].size()) ? hints[row][col].first : 0;
         int ver_hint = (row < hints.size() && col < hints[row].size()) ? hints[row][col].second : 0;
 
         if (hor_hint > 0) {
-            painter.drawText(x + 4, y + sz / 3, QString::number(hor_hint));
+            painter.drawText(x + 4, y + size / 3, QString::number(hor_hint));
         }
         if (ver_hint > 0) {
-            painter.drawText(x + sz - sz / 4, y + sz - 4, QString::number(ver_hint));
+            painter.drawText(x + size - size / 4, y + size - 4, QString::number(ver_hint));
         }
     } else {
         painter.fillRect(rect, QColor(240, 240, 240));
         painter.setPen(Qt::black);
         if (cell.value != 0) {
             QFont font = painter.font();
-            font.setPointSize(qMax(10, sz / 3));
+            font.setPointSize(qMax(10, size / 3));
             painter.setFont(font);
             painter.drawText(rect, Qt::AlignCenter, QString::number(cell.value));
         }

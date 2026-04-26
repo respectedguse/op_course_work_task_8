@@ -278,7 +278,6 @@ void KakuroPuzzle::build_vertical_blocks(const vector<vector<int>> &sums, const 
 /*---------------------------------------------------------------------[<]-
     Function: print_grid
     Synopsis: Prints the grid to console.
-              
   ---------------------------------------------------------------------[>]-*/
 void KakuroPuzzle::print_grid() const {
     int rows = grid.size();

@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cassert>
 #include <vector>
+#include <iomanip>
+
 #include "combinations.h"
 #include "puzzle.h"
 #include "solver.h"
@@ -13,7 +15,7 @@ using namespace std;
               for length 1...9. Verifies correct min and max sums.
   ---------------------------------------------------------------------[>]-*/
 void test_min_max_sum() {
-    cout << "test_min_max_sum... ";
+    cout << left << setfill('.') << setw(40) << "test_min_max_sum... ";
     
     assert(CombinationGenerator::min_sum_for_len(1) == 1);
     assert(CombinationGenerator::min_sum_for_len(2) == 3);
@@ -29,7 +31,7 @@ void test_min_max_sum() {
     assert(CombinationGenerator::max_sum_for_len(5) == 35);
     assert(CombinationGenerator::max_sum_for_len(9) == 45);
     
-    cout << "OK" << endl;
+    cout << right << setfill(' ') << setw(4) << "OK" << endl;
 }
 
 /*---------------------------------------------------------------------[<]-
@@ -38,7 +40,7 @@ void test_min_max_sum() {
               for various pairs, including edge cases with no combinations.
   ---------------------------------------------------------------------[>]-*/
 void test_combinations_generator() {
-    cout << "test_combinations_generator... ";
+    cout << left << setfill('.') << setw(40) << "test_combinations_generator... ";
     
     CombinationGenerator gen;
     
@@ -76,7 +78,7 @@ void test_combinations_generator() {
     combs = gen.get_combinations(50, 5);
     assert(combs.empty());
     
-    cout << "OK" << endl;
+    cout << right << setfill(' ') << setw(4) << "OK" << endl;
 }
 
 /*---------------------------------------------------------------------[<]-
@@ -85,7 +87,7 @@ void test_combinations_generator() {
               Verifies block counts, sums, and index assignments.
   ---------------------------------------------------------------------[>]-*/
 void test_build_blocks() {
-    cout << "test_build_blocks... ";
+    cout << left << setfill('.') << setw(40) << "test_build_blocks... ";
     
     CombinationGenerator gen;
     KakuroPuzzle puzzle(5, 5);
@@ -143,7 +145,7 @@ void test_build_blocks() {
     assert(puzzle.get_cell(2,3).index_horizontal_block == 2);
     assert(puzzle.get_cell(2,3).index_vertical_block == 3);
     
-    cout << "OK" << endl;
+    cout << right << setfill(' ') << setw(4) << "OK" << endl;
 }
 
 /*---------------------------------------------------------------------[<]-
@@ -152,7 +154,7 @@ void test_build_blocks() {
               Verifies that solution is found correctly.
   ---------------------------------------------------------------------[>]-*/
 void test_solver_small() {
-    cout << "test_solver_small... ";
+    cout << left << setfill('.') << setw(40) << "test_solver_small... ";
     
     CombinationGenerator gen;
     KakuroPuzzle puzzle(3, 3);
@@ -171,7 +173,7 @@ void test_solver_small() {
     assert(solver.solve());
     assert(puzzle.get_cell(1, 1).value == 5);
     
-    cout << "OK" << endl;
+    cout << right << setfill(' ') << setw(4) << "OK" << endl;
 }
 
 /*---------------------------------------------------------------------[<]-
@@ -180,7 +182,7 @@ void test_solver_small() {
               Verifies that solve() returns false.
   ---------------------------------------------------------------------[>]-*/
 void test_solver_impossible() {
-    cout << "test_solver_impossible... ";
+    cout << left << setfill('.') << setw(40) << "test_solver_impossible... ";
     
     cerr.setstate(ios::failbit);
 
@@ -201,7 +203,7 @@ void test_solver_impossible() {
 
     cerr.clear();
 
-    cout << "OK" << endl;
+    cout << right << setfill(' ') << setw(4) << "OK" << endl;
 }
 
 /*---------------------------------------------------------------------[<]-
@@ -210,11 +212,16 @@ void test_solver_impossible() {
 int main() {
     cout << "Running tests\n" << endl;
 
+    cout << left << setfill(' ') << setw(40) << "Test" << right << setw(4) << "Status" << endl;
+    cout << setfill('-') << setw(45) << "" << setfill(' ') << endl;
+
     test_min_max_sum();
     test_combinations_generator();
     test_build_blocks();
     test_solver_small();
     test_solver_impossible();
+
+    cout << setfill('-') << setw(45) << "" << setfill(' ') << endl;
     
     cout << "\nAll tests passed successfully!" << endl;
     return 0;

@@ -9,11 +9,12 @@ Revised: 02.05.2026
 
 Description: This program solves Kakuro puzzle. 
              The user selects one of the three build-in test cases.
-             After pressing button "Solve", a backtracking algorithm fills the white celss
-             with digits from 1 to 9 such that the sums in horizontal and vertical blocks match
+             After pressing button "Solve", a backtracking algorithm 
+             fills the white celss with digits from 1 to 9 such that 
+             the sums in horizontal and vertical blocks match
              the given sum, and digits within a block are not repeated.
-             The result is displayed graphically using the Qt library. The solving time is shown
-             in the main window.
+             The result is displayed graphically using the Qt library. 
+             The solving time is shown in the main window.
 ------------------------------------------------------------------</Header>-*/
 
 

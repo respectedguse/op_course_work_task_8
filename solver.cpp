@@ -15,25 +15,25 @@ KakuroSolver::KakuroSolver(KakuroPuzzle &p): puzzle(p) {}
               violating sum, repetition, and combination constraints.
   ---------------------------------------------------------------------[>]-*/
 vector<int> KakuroSolver::possible_digits(int r, int c) const {
-    int hb = puzzle.get_cell(r, c).index_horizontal_block;
-    int vb = puzzle.get_cell(r, c).index_vertical_block;
+    int horiz_block = puzzle.get_cell(r, c).index_horizontal_block;
+    int vert_block = puzzle.get_cell(r, c).index_vertical_block;
 
-    if (hb < 0 || hb >= (int)horizontal_sum.size() || vb < 0 || vb >= (int)vertical_sum.size()) {
+    if (horiz_block < 0 || horiz_block >= (int)horizontal_sum.size() || vert_block < 0 || vert_block >= (int)vertical_sum.size()) {
         return {};
     }
 
-    const Block &horizontal_block = puzzle.get_horizontal_blocks()[hb];
-    const Block &vertical_block = puzzle.get_vertical_blocks()[vb];
+    const Block &horizontal_block = puzzle.get_horizontal_blocks()[horiz_block];
+    const Block &vertical_block = puzzle.get_vertical_blocks()[vert_block];
 
-    int remain_horizontal = horizontal_block.sum - horizontal_sum[hb];
-    int remain_vertical = vertical_block.sum - vertical_sum[vb];
-    int remain_cells_horizontal = horizontal_block.cells.size() - horizontal_filled[hb];
-    int remain_cells_vertical = vertical_block.cells.size() - vertical_filled[vb];
+    int remain_horizontal = horizontal_block.sum - horizontal_sum[horiz_block];
+    int remain_vertical = vertical_block.sum - vertical_sum[vert_block];
+    int remain_cells_horizontal = horizontal_block.cells.size() - horizontal_filled[horiz_block];
+    int remain_cells_vertical = vertical_block.cells.size() - vertical_filled[vert_block];
 
     vector<int> candidates;
 
     for (int d = 1; d <= 9; ++d) {
-        if (horizontal_used[hb][d] || vertical_used[vb][d] || d > remain_horizontal || d > remain_vertical) {
+        if (horizontal_used[horiz_block][d] || vertical_used[vert_block][d] || d > remain_horizontal || d > remain_vertical) {
             continue;
         }
 
@@ -42,8 +42,8 @@ vector<int> KakuroSolver::possible_digits(int r, int c) const {
             continue;
         }
 
-        if (is_combination_possible(d, horizontal_block, horizontal_used[hb]) &&
-            is_combination_possible(d, vertical_block, vertical_used[vb])) {
+        if (is_combination_possible(d, horizontal_block, horizontal_used[horiz_block]) &&
+            is_combination_possible(d, vertical_block, vertical_used[vert_block])) {
             candidates.push_back(d);
         }
 
@@ -73,7 +73,7 @@ bool KakuroSolver::is_sum_possible(int remain_sum, int remain_cells, int d) cons
     Function: backtrack
     Synopsis: Recursive backtracking method. Selects best empty cell,
               tries each candidate digit, and proceeds. Returns true 
-              is solved.
+              if solved.
   ---------------------------------------------------------------------[>]-*/
 bool KakuroSolver::backtrack() {
     vector<int> best_candidates;
@@ -147,8 +147,8 @@ bool KakuroSolver::is_combination_possible(int d, const Block &block, const vect
 /*---------------------------------------------------------------------[<]-
     Function: find_best_empty_cell
     Synopsis: Selects empty cell with minimum number of candidates.
-              If no candidates exist, returns G_STATUS_END. 
-              If all cells filled, returns G_STATUS_SOLVED.
+              If no candidates exist, returns END. 
+              If all cells filled, returns SOLVED.
   ---------------------------------------------------------------------[>]-*/
 int KakuroSolver::find_best_empty_cell(vector<int> &best_candidates) const {
     int best_index = -1;
