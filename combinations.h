@@ -6,10 +6,8 @@
 
 /* ---------------------------------------------------------------------[<]-
     Class: CombinationGenerator
-    Synopsis: This class was created for precompute and store all 
-              combinations of digits that sum to a give value. Used by 
-              Kakuro Solver to quickly obtain possible digit sets for 
-              each block. 
+    Synopsis: Precompute and store all combinations of digits that sum 
+              to a give value.
    ---------------------------------------------------------------------[>]-*/
 
 class CombinationGenerator {

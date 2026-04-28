@@ -13,8 +13,7 @@ using namespace std;
 
 /*---------------------------------------------------------------------[<]-
     Function: MainWindow
-    Synopsis: Constructor that sets up UI: grid, intro text, buttons
-              and connections.
+    Synopsis: Constructor that sets up interface.
   ---------------------------------------------------------------------[>]-*/
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), current_puzzle(nullptr), current_solver(nullptr) {
     QWidget *central = new QWidget(this);
@@ -142,7 +141,7 @@ void MainWindow::setup_puzzle_from_test(int test_id) {
 
 /*---------------------------------------------------------------------[<]-
     Function: create_test1
-    Synopsis: Build and returns the first predefined Kakuro puzzle.
+    Synopsis: Build first test of Kakuro puzzle based on data.
   ---------------------------------------------------------------------[>]-*/
 KakuroPuzzle *MainWindow::create_test1() {
     KakuroPuzzle *puzzle = new KakuroPuzzle(10, 10);
@@ -200,7 +199,7 @@ KakuroPuzzle *MainWindow::create_test1() {
 
 /*---------------------------------------------------------------------[<]-
     Function: create_test2
-    Synopsis: Build and returns the second predefined Kakuro puzzle.
+    Synopsis: Build second test of Kakuro puzzle based on data.
   ---------------------------------------------------------------------[>]-*/
 KakuroPuzzle *MainWindow::create_test2() {
     KakuroPuzzle *puzzle = new KakuroPuzzle(7, 7);
@@ -249,7 +248,7 @@ KakuroPuzzle *MainWindow::create_test2() {
 
 /*---------------------------------------------------------------------[<]-
     Function: create_test3
-    Synopsis: Build and returns the third predefined Kakuro puzzle. 
+    Synopsis: Build third test of Kakuro puzzle based on data. 
   ---------------------------------------------------------------------[>]-*/
 KakuroPuzzle *MainWindow::create_test3() {
     KakuroPuzzle *puzzle = new KakuroPuzzle(10, 10);
@@ -307,8 +306,8 @@ KakuroPuzzle *MainWindow::create_test3() {
 
 /*---------------------------------------------------------------------[<]-
     Function: compute_hints_from_blocks
-    Synopsis: Extracts horizontal and vertical sum clues from blocks
-              and stores them in a 2D vector for drawing on black cells.
+    Synopsis: Extracts horizontal and vertical sum from blocks
+              and stores them.
   ---------------------------------------------------------------------[>]-*/
 void MainWindow::compute_hints_from_blocks() {
     if (!current_puzzle) {

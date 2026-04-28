@@ -39,8 +39,8 @@ If a solution exists, the algorithm will find it. Otherwise it reports that the 
 ## Building the project
 
 ### Build Requirements:
-- **C++17** or newer
-- **Qt 6.11** (tested with MinGW 64‑bit)
+- **C++17**
+- **Qt 6.11**
 - **CMake 3.16+**
 
 1. Open the project.

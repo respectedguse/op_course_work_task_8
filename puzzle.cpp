@@ -133,8 +133,6 @@ void KakuroPuzzle::clear_solution() {
 /*---------------------------------------------------------------------[<]-
     Function: build_blocks 
     Synopsis: Builds horizontal and vertical block from given sums.
-              Clears existing blocks, resets indices and build blocks
-              using the combination generator.
   ---------------------------------------------------------------------[>]-*/
 void KakuroPuzzle::build_blocks(const vector<vector<int>> &horizontal_sums, 
                                 const vector<vector<int>> &vertical_sums, 

@@ -77,7 +77,7 @@ void KakuroGridWidget::paintEvent(QPaintEvent *event) {
 
 /*---------------------------------------------------------------------[<]-
     Function: draw_cell
-    Synopsis: Draws a single cell (black/white).
+    Synopsis: Draws a single black/white cell.
   ---------------------------------------------------------------------[>]-*/
 void KakuroGridWidget::draw_cell(QPainter &painter, int row, int col) {
     int size = cell_size();

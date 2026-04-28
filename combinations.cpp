@@ -4,8 +4,7 @@ using namespace std;
 
 /*---------------------------------------------------------------------[<]-
     Function: CombinationGenerator
-    Synopsis: Constructor. Calls compute_all_combinations() to 
-              precompute all data
+    Synopsis: Constructor
   ---------------------------------------------------------------------[>]-*/
 CombinationGenerator::CombinationGenerator(): combinations_precomputed(false) {
     compute_all_combinations();
@@ -14,7 +13,6 @@ CombinationGenerator::CombinationGenerator(): combinations_precomputed(false) {
 /*---------------------------------------------------------------------[<]-
     Function: compute_all_combinations
     Synopsis: Precompute all combinations for sum 1...45 and length 1...9.
-              Stores the in the map combinations.
   ---------------------------------------------------------------------[>]-*/
 void CombinationGenerator::compute_all_combinations() {
     if (combinations_precomputed) {
@@ -73,7 +71,7 @@ void CombinationGenerator::generate_combination(int start, int remain_len, int r
 
 /*---------------------------------------------------------------------[<]-
     Function: get_combinations
-    Synopsis: Returns precomputed combinations for give sum and length.
+    Synopsis: Returns precomputed combinations for given sum and length.
   ---------------------------------------------------------------------[>]-*/
 vector<vector<int>> CombinationGenerator::get_combinations(int sum, int len) const {
     auto it = combinations.find({sum, len});
